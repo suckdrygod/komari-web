@@ -449,6 +449,32 @@
       "separator": "、",
       "title": "流量定时报告",
       "weekly": "周报"
+    },
+    "ssh_login": {
+      "auth_method": "认证方式",
+      "batch_edit": "批量修改",
+      "clear_events": "清空记录",
+      "description": "使用安全探针只读监控 SSH 登录日志；不会修改 PAM 或 sshd 配置。白名单来源只记录不推送。",
+      "errors": {
+        "events_delete_failed": "清空 SSH 登录记录失败",
+        "events_fetch_failed": "获取 SSH 登录记录失败",
+        "fetch_failed": "获取 SSH 登录通知配置失败",
+        "save_failed": "保存 SSH 登录通知配置失败",
+        "update_failed": "更新 SSH 登录通知配置失败"
+      },
+      "events_title": "最近 SSH 登录记录",
+      "full_title": "SSH 登录通知设置",
+      "no_events": "暂无 SSH 登录记录",
+      "notified": "已推送",
+      "result": "结果",
+      "source": "来源",
+      "time": "时间",
+      "title": "SSH 登录通知",
+      "user": "用户",
+      "whitelist": "IP 白名单",
+      "whitelist_placeholder": "每行一个 IP 或 CIDR，例如：\n1.2.3.4\n1.2.3.0/24\n2001:db8::/32",
+      "whitelist_tip": "白名单命中的登录会写入记录，但不会发送 Telegram/邮箱通知。",
+      "whitelisted": "白名单"
     }
   },
   "page_not_found": "真不巧，网页被小鞠吃掉了。",

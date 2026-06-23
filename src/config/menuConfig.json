@@ -68,6 +68,11 @@
           "icon": "BarChart2"
         },
         {
+          "labelKey": "notification.ssh_login.title",
+          "path": "/admin/notification/ssh-login",
+          "icon": "KeyRound"
+        },
+        {
           "labelKey": "settings.general.title",
           "path": "/admin/notification/general",
           "icon": "Ellipsis"

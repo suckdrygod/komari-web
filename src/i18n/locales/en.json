@@ -449,6 +449,32 @@
       "separator": ", ",
       "title": "Traffic Report",
       "weekly": "Weekly"
+    },
+    "ssh_login": {
+      "auth_method": "Auth Method",
+      "batch_edit": "Batch Edit",
+      "clear_events": "Clear Events",
+      "description": "Uses the safe agent to read SSH login logs only; it does not modify PAM or sshd. Whitelisted sources are recorded but not pushed.",
+      "errors": {
+        "events_delete_failed": "Failed to clear SSH login events",
+        "events_fetch_failed": "Failed to fetch SSH login events",
+        "fetch_failed": "Failed to fetch SSH login settings",
+        "save_failed": "Failed to save SSH login settings",
+        "update_failed": "Failed to update SSH login settings"
+      },
+      "events_title": "Recent SSH Login Events",
+      "full_title": "SSH Login Notifications",
+      "no_events": "No SSH login events",
+      "notified": "Notified",
+      "result": "Result",
+      "source": "Source",
+      "time": "Time",
+      "title": "SSH Login",
+      "user": "User",
+      "whitelist": "IP Whitelist",
+      "whitelist_placeholder": "One IP or CIDR per line, for example:\n1.2.3.4\n1.2.3.0/24\n2001:db8::/32",
+      "whitelist_tip": "Matching logins are saved in the event list, but Telegram/email notifications are suppressed.",
+      "whitelisted": "Whitelisted"
     }
   },
   "page_not_found": "The server cannot find the specific page you're trying to access.",
