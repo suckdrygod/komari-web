@@ -6,7 +6,11 @@ import { Terminal, Trash2, Copy, Download, DollarSign } from "lucide-react";
 import { t } from "i18next";
 import type { Row } from "@tanstack/react-table";
 import { EditDialog } from "./NodeEditDialog";
-import { quotePowerShellArg, quoteShellArgs } from "@/utils/shellQuote";
+import {
+  quotePowerShellArg,
+  quoteShellArg,
+  quoteShellArgs,
+} from "@/utils/shellQuote";
 import {
   Button,
   Checkbox,
@@ -35,6 +39,9 @@ type InstallOptions = {
 };
 
 type Platform = "linux" | "windows" | "macos";
+
+const SAFE_AGENT_INSTALL_URL =
+  "https://raw.githubusercontent.com/suckdrygod/tcpping/main/install.sh";
 
 export function ActionsCell({ row }: { row: Row<z.infer<typeof schema>> }) {
   const refreshTable = React.useContext(DataTableRefreshContext);
@@ -85,11 +92,12 @@ export function ActionsCell({ row }: { row: Row<z.infer<typeof schema>> }) {
 
     let finalCommand = "";
     switch (selectedPlatform) {
-      case "linux":
+      case "linux": {
         finalCommand =
-          `wget -qO- https://raw.githubusercontent.com/komari-monitor/komari-agent/refs/heads/main/install.sh | sudo bash -s -- ` +
+          `curl -fsSL ${quoteShellArg(SAFE_AGENT_INSTALL_URL)} | sudo bash -s -- ` +
           quoteShellArgs(args);
         break;
+      }
       case "windows":
         finalCommand =
           `powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ` +
@@ -347,4 +355,3 @@ export function ActionsCell({ row }: { row: Row<z.infer<typeof schema>> }) {
     </div>
   );
 }
-

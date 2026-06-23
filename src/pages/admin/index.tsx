@@ -332,11 +332,16 @@ const AutoDiscoverySection = ({
 
     let finalCommand = "";
     switch (selectedPlatform) {
-      case "linux":
+      case "linux": {
+        const linuxScriptUrl = applyGithubProxy(
+          SAFE_AGENT_INSTALL_URL,
+          enableGhproxy ? ghproxy : "",
+        );
         finalCommand =
-          `wget -qO- ${quoteShellArg(scriptUrl)} | sudo bash -s -- ` +
+          `curl -fsSL ${quoteShellArg(linuxScriptUrl)} | sudo bash -s -- ` +
           quoteShellArgs(args);
         break;
+      }
       case "windows":
         finalCommand =
           `powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ` +
@@ -1329,6 +1334,19 @@ const NodeTable = ({
 };
 
 type Platform = "linux" | "windows" | "macos" | "docker";
+
+const SAFE_AGENT_INSTALL_URL =
+  "https://raw.githubusercontent.com/suckdrygod/tcpping/main/install.sh";
+
+function applyGithubProxy(url: string, ghproxy: string) {
+  const proxy = ghproxy.trim();
+  if (!proxy) return url;
+  const normalizedProxy = (
+    proxy.startsWith("http") ? proxy : `http://${proxy}`
+  ).replace(/\/+$/, "");
+  return `${normalizedProxy}/${url.replace(/^https?:\/\//, "")}`;
+}
+
 const ActionButtons = ({ node, settings }: { node: NodeDetail, settings: any }) => {
   const { t } = useTranslation();
   return (
@@ -1541,11 +1559,16 @@ function GenerateCommandButton({ node, settings }: { node: NodeDetail, settings:
     }
     let finalCommand = "";
     switch (selectedPlatform) {
-      case "linux":
+      case "linux": {
+        const linuxScriptUrl = applyGithubProxy(
+          SAFE_AGENT_INSTALL_URL,
+          enableGhproxy ? ghproxy : "",
+        );
         finalCommand =
-          `wget -qO- ${quoteShellArg(scriptUrl)} | sudo bash -s -- ` +
+          `curl -fsSL ${quoteShellArg(linuxScriptUrl)} | sudo bash -s -- ` +
           quoteShellArgs(args);
         break;
+      }
       case "windows":
         finalCommand =
           `powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ` +
