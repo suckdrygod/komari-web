@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { Text } from "@radix-ui/themes";
+import { Checkbox, Flex, Text } from "@radix-ui/themes";
 import { updateSettingsWithToast, useSettings } from "@/lib/api";
 import {
+  SettingCard,
   SettingCardButton,
   SettingCardLabel,
   SettingCardLongTextInput,
-  SettingCardSelect,
   SettingCardSwitch,
 } from "@/components/admin/SettingCard";
 import { toast } from "sonner";
@@ -15,11 +15,60 @@ import { renderProviderInputs } from "@/utils/renderProviders";
 import { SquareArrowOutUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const normalizeNotificationMethods = (settings: any, senders: string[]) => {
+  const raw = settings.notification_methods;
+  const hasMultiValue =
+    Array.isArray(raw) ||
+    (typeof raw === "string" && raw.trim().length > 0);
+  let values: string[] = [];
+
+  if (hasMultiValue) {
+    if (Array.isArray(raw)) {
+      values = raw;
+    } else if (typeof raw === "string" && raw.trim()) {
+      try {
+        const parsed = JSON.parse(raw);
+        values = Array.isArray(parsed) ? parsed : raw.split(",");
+      } catch {
+        values = raw.split(",");
+      }
+    }
+  } else if (settings.notification_method) {
+    values = [settings.notification_method];
+  }
+
+  const seen = new Set<string>();
+  return values
+    .map((value) => String(value).trim())
+    .filter((value) => value && value !== "none")
+    .filter((value) => senders.includes(value))
+    .filter((value) => {
+      if (seen.has(value)) return false;
+      seen.add(value);
+      return true;
+    });
+};
+
+const preferredSenderOrder = (senders: string[]) => {
+  const preferred = ["telegram", "email", "webhook"];
+  return [...senders].sort((a, b) => {
+    const ai = preferred.indexOf(a);
+    const bi = preferred.indexOf(b);
+    if (ai !== -1 || bi !== -1) {
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    }
+    return a.localeCompare(b);
+  });
+};
+
 const NotificationSettings = () => {
   const { t } = useTranslation();
   const { settings, loading, error } = useSettings();
   const [messageDefs, setMessageDefs] = React.useState<any>({});
   const [messageList, setMessageList] = React.useState<string[]>([]);
+  const [selectedMessageSenders, setSelectedMessageSenders] = React.useState<string[]>([]);
   const [currentMessageSender, setCurrentMessageSender] = React.useState<string>("");
   const [messageValues, setMessageValues] = React.useState<any>({});
   const [messageLoading, setMessageLoading] = React.useState(false);
@@ -34,12 +83,11 @@ const NotificationSettings = () => {
       .then((data) => {
         if (data.status === "success" && data.data) {
           setMessageDefs(data.data);
-          const senders = Object.keys(data.data);
+          const senders = preferredSenderOrder(Object.keys(data.data));
           setMessageList(senders);
-          const initialSender =
-            settings.notification_method && senders.includes(settings.notification_method)
-              ? settings.notification_method
-              : "";
+          const initialSenders = normalizeNotificationMethods(settings, senders);
+          setSelectedMessageSenders(initialSenders);
+          const initialSender = initialSenders[0] || "";
           setCurrentMessageSender(initialSender);
         } else {
           setMessageError(data.message || t("settings.notification.provider_fetch_failed"));
@@ -47,7 +95,7 @@ const NotificationSettings = () => {
       })
       .catch(() => setMessageError(t("settings.notification.provider_fetch_failed")))
       .finally(() => setMessageLoading(false));
-  }, [loading, settings.notification_method, t]);
+  }, [loading, settings, t]);
 
   // 拉取当前 message sender 的设置
   React.useEffect(() => {
@@ -96,6 +144,41 @@ const NotificationSettings = () => {
     }
     setMessageLoading(false);
   };
+
+  const handleMessageSenderToggle = async (sender: string, checked: boolean) => {
+    const nextSenders = checked
+      ? [...selectedMessageSenders, sender]
+      : selectedMessageSenders.filter((item) => item !== sender);
+    const normalizedNextSenders = normalizeNotificationMethods(
+      { notification_methods: nextSenders },
+      messageList,
+    );
+    const previousSenders = selectedMessageSenders;
+    const previousCurrentSender = currentMessageSender;
+
+    setSelectedMessageSenders(normalizedNextSenders);
+    if (checked || currentMessageSender === sender) {
+      setCurrentMessageSender(sender);
+    }
+    if (!checked && currentMessageSender === sender) {
+      setCurrentMessageSender(normalizedNextSenders[0] || "");
+    }
+
+    try {
+      await updateSettingsWithToast(
+        {
+          notification_methods: normalizedNextSenders,
+          notification_method: normalizedNextSenders[0] || "none",
+        },
+        t,
+      );
+    } catch (error) {
+      setSelectedMessageSenders(previousSenders);
+      setCurrentMessageSender(previousCurrentSender);
+      throw error;
+    }
+  };
+
   if (loading || (!messageLoading && messageList.length === 0 && !messageError)) {
     return <Loading />;
   }
@@ -126,17 +209,34 @@ const NotificationSettings = () => {
             await updateSettingsWithToast({ notification_template: value }, t);
           }}
       />
-      <SettingCardSelect
+      <SettingCard
         title={t("settings.notification.method")}
         description={t("settings.notification.method_description")}
-        options={messageList.map((sender) => ({ value: sender, label: sender }))}
-        value={currentMessageSender}
-        OnSave={async (val: string) => {
-          if (val === currentMessageSender) return;
-          await updateSettingsWithToast({ notification_method: val }, t);
-          setCurrentMessageSender(val);
-        }}
-      />
+      >
+        <Flex direction="row" gap="4" wrap="wrap" className="w-full pt-3">
+          {messageList.map((sender) => (
+            <label
+              key={sender}
+              className="flex cursor-pointer select-none items-center gap-2 rounded-md border px-3 py-2 text-sm"
+              style={{
+                borderColor:
+                  currentMessageSender === sender
+                    ? "var(--accent-8)"
+                    : "var(--gray-a5)",
+              }}
+              onClick={() => setCurrentMessageSender(sender)}
+            >
+              <Checkbox
+                checked={selectedMessageSenders.includes(sender)}
+                onCheckedChange={(checked) => {
+                  void handleMessageSenderToggle(sender, checked === true);
+                }}
+              />
+              <span>{sender}</span>
+            </label>
+          ))}
+        </Flex>
+      </SettingCard>
       {messageLoading ? <Loading /> : renderProviderInputs({
         currentProvider: currentMessageSender,
         providerDefs: messageDefs,
