@@ -200,6 +200,14 @@ const NotificationSettings = () => {
           await updateSettingsWithToast({ notification_enabled: checked }, t);
         }}
       />
+      <SettingCardSwitch
+        title={t("settings.notification.ssh_auth_guard_silent_mode")}
+        description={t("settings.notification.ssh_auth_guard_silent_mode_description")}
+        defaultChecked={settings.ssh_auth_guard_silent_mode}
+        onChange={async (checked) => {
+          await updateSettingsWithToast({ ssh_auth_guard_silent_mode: checked }, t);
+        }}
+      />
       <SettingCardLongTextInput
         title={t("settings.notification.template")}
         description={t("settings.notification.template_description")}

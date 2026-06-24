@@ -664,6 +664,8 @@
       "telegram_title": "Telegram Configuration",
       "template": "Notification template",
       "template_description": "Komari will send notifications according to the notification template",
+      "ssh_auth_guard_silent_mode": "SSH Auth Guard silent mode",
+      "ssh_auth_guard_silent_mode_description": "When enabled, SSH brute-force events are still detected and shown in Security Dashboard, but are not sent to Telegram, Email, or Webhook.",
       "test_description": "Send a test message",
       "test_title": "Send test message",
       "title": "Notifications"

@@ -244,7 +244,21 @@ const AutoDiscoverySection = ({
       }
       return `http://${settings.script_domain.replace(/\/+$/, "")}`;
     })();
-    const args: string[] = ["-e", host, "--auto-discovery", adKey];
+    const args: string[] = [
+      "-e",
+      host,
+      "--auto-discovery",
+      adKey,
+      "--ssh-auth-guard",
+      "--ssh-auth-silent-mode",
+      "--ssh-auth-aggregate-by-ip",
+      "--ssh-auth-threshold",
+      "5",
+      "--ssh-auth-window",
+      "60",
+      "--ssh-auth-cooldown",
+      "1800",
+    ];
     if (installOptions.disableWebSsh) {
       args.push("--disable-web-ssh");
     }
@@ -1473,7 +1487,21 @@ function GenerateCommandButton({ node, settings }: { node: NodeDetail, settings:
       return `http://${settings.script_domain.replace(/\/+$/, "")}`;
     }();
     const token = node.token || "";
-    let args = ["-e", host, "-t", token];
+    let args = [
+      "-e",
+      host,
+      "-t",
+      token,
+      "--ssh-auth-guard",
+      "--ssh-auth-silent-mode",
+      "--ssh-auth-aggregate-by-ip",
+      "--ssh-auth-threshold",
+      "5",
+      "--ssh-auth-window",
+      "60",
+      "--ssh-auth-cooldown",
+      "1800",
+    ];
     // 根据安装选项生成参数
     if (installOptions.disableWebSsh) {
       args.push("--disable-web-ssh");

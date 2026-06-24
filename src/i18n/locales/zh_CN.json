@@ -664,6 +664,8 @@
       "telegram_title": "Telegram 配置",
       "template": "消息通知模板",
       "template_description": "Komari 将按照消息通知模板发送通知",
+      "ssh_auth_guard_silent_mode": "SSH 爆破告警静默模式",
+      "ssh_auth_guard_silent_mode_description": "开启后 SSH 爆破仍会检测并显示在安全控制台，但不推送到 Telegram、Email 或 Webhook。",
       "test_description": "发送测试消息",
       "test_title": "发送测试消息",
       "title": "通知"
