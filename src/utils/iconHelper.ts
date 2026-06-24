@@ -19,6 +19,7 @@ import {
   Palette,
   Code,
   Globe,
+  ShieldCheck,
   Terminal
 } from "lucide-react";
 
@@ -43,5 +44,6 @@ export const iconMap: Record<string, React.ComponentType<any>> = {
   Palette,
   Code,
   Globe,
+  ShieldCheck,
   Terminal,
 };

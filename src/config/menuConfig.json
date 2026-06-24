@@ -105,6 +105,12 @@
       "icon": "FileText"
     },
     {
+      "labelKey": "common.security_dashboard",
+      "path": "/security/dashboard",
+      "icon": "ShieldCheck",
+      "reloadDocument": true
+    },
+    {
       "labelKey": "common.about",
       "path": "/admin/about",
       "icon": "AtSign"
