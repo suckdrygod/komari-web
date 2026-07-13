@@ -104,15 +104,11 @@
     "nodeTable": {
       "addNode": "ノードを追加",
       "autoDiscovery": {
-        "title": "自動検出",
         "disabledDescription": "自動検出を有効にすると、ノードを1台ずつ手動で追加する必要がなくなります。対象サーバーでコマンドを1つ実行するだけで、Agent がキーを使って自動的に登録・オンライン化されます。多数のサーバーを一括展開する場合に最適です。",
         "enabledDescription": "対象サーバーで以下のコマンドを実行すると、Agent が自動的に登録・オンライン化されます。手動でのノード作成は不要です。",
         "goToSettings": "「一般設定」へ移動して自動検出を有効化",
+        "title": "自動検出",
         "tryIt": "自動検出を試す"
-      },
-      "emptyGuide": {
-        "title": "まだサーバーがありません",
-        "description": "右上の「ノードを追加」をクリックして開始するか、自動検出を有効にしてサーバーを一括登録してください。"
       },
       "autoRenewal": "自動更新",
       "autoRenewalDescription": "サーバーが期限切れで現在オンラインの場合、Komariは期限を次の自然月（年）に自動的に設定します。",
@@ -132,6 +128,10 @@
       "disableWebSsh": "リモートコントロールを無効にする",
       "dragToReorder": "長押ししてドラッグで再配置",
       "editNodePrice": "請求書を編集",
+      "emptyGuide": {
+        "description": "右上の「ノードを追加」をクリックして開始するか、自動検出を有効にしてサーバーを一括登録してください。",
+        "title": "まだサーバーがありません"
+      },
       "enableGpuMonitoring": "詳細な GPU 監視を有効にする",
       "errorLoadNodeList": "ノードリストを読み込めません",
       "errorRefreshNodeList": "リストの更新に失敗しました",
@@ -184,17 +184,27 @@
   },
   "cancel": "キャンセル",
   "chart": {
+    "addChart": "グラフを追加",
+    "addMetric": "メトリックを追加",
     "avg": "平均値",
     "connections": "接続数",
     "cpu_usage": "CPU 使用率",
+    "customRange": "カスタム",
     "cutPeak": "スムージング",
     "cutPeak_tips": "<h2 class=\"text-lg font-bold\">データスムージングに関するヒント</h2><p>スムージングを有効にすると、統計グラフで表示される曲線は<strong>指数加重移動平均 (EWMA)</strong>アルゴリズムによって処理されます。これは一般的なデータスムージング技術です。</p></br><p>注意が必要なのは、EWMAアルゴリズムでスムージングされた曲線が示す数値は、<strong>元の、実際の測定データではない</strong>ということです。これらはEWMAアルゴリズムによって計算された<strong>スムーズなトレンドライン</strong>であり、データの変動を減らし、データのパターンやトレンドを認識しやすくすることを目的としています。</p></br><p>したがって、あなたが見る数値は<strong>視覚的な表現</strong>に近く、データの全体的な動向や長期的なトレンドを理解するのに役立ちますが、各時間点の正確な実際の値ではありません。具体的で元のデータポイントを確認する必要がある場合は、スムージングされていないデータビューを参照してください。</p>",
+    "dashboard": "グラフ",
     "days": "{{count}} 日",
     "disk_used": "ディスク",
+    "downsampleAlgorithm": "ダウンサンプル",
+    "endTime": "終了時刻",
+    "fillEmpty": "欠損を補完",
+    "globalTemplateSaveFailed": "グローバルグラフテンプレートを保存できませんでした",
+    "globalTemplateSaved": "グローバルグラフテンプレートを保存しました",
     "gpu_memory": "GPU メモリ使用率",
     "hideAll": "すべて隠す",
     "hours": "{{count}} 時間",
     "interval": "検出間隔",
+    "invalidTimeRange": "開始時刻は終了時刻より前にしてください",
     "latest": "最新",
     "loss_tips": "パケットロス率の計算アルゴリズムは正確ではないため、注意して参考にしてください。変動：遅延の尾の変動、数値が高いほど変動が大きくなります。計算方法：(P99 - P50) / max(min(P50, 50), 10)。",
     "lossRate": "パケットロス",
@@ -204,13 +214,36 @@
     "network_down": "ダウンロード",
     "network_up": "アップロード",
     "process": "プロセス数",
+    "query": "照会",
+    "quickRange": "クイック選択",
+    "recentDay": "直近 1 日",
+    "recentDays": "直近 {{count}} 日",
+    "recentWeek": "直近 1 週間",
+    "removeMetric": "メトリックを削除",
+    "sampling": {
+      "average": "平均",
+      "first": "最初",
+      "last": "最後",
+      "max": "最大",
+      "min": "最小",
+      "p70": "第 70 パーセンタイル",
+      "p95": "第 95 パーセンタイル",
+      "p99": "第 99 パーセンタイル",
+      "stddev": "標準偏差"
+    },
+    "samplingAlgorithm": "サンプリング方式",
+    "samplingAlgorithmTips": "<b>ダウンサンプリング</b><br/>履歴範囲では、バックエンドがクエリ間隔に合わせた固定時間バケットへデータ点をまとめ、選択した方式で各バケットから 1 つの値を計算します。<br/><br/>平均/最小/最大/最初/最後/標準偏差とパーセンタイルは、各バケット内の値を対象に計算されます。空のバケットは空のままなので、グラフの途切れはデータ欠損を表します。",
+    "saveGlobalTemplate": "グローバルテンプレートとして保存",
     "showAll": "すべて表示",
+    "startTime": "開始時刻",
     "swap_used": "仮想メモリ",
     "tcp_connections": "TCP",
     "total": "サンプル数",
     "type": "タイプ",
     "udp_connections": "UDP",
     "usage": "使用率",
+    "valid": "有効サンプル",
+    "approximate": "概算",
     "volatility": "変動"
   },
   "close": "閉じる",
@@ -313,6 +346,7 @@
     "title": "タイトル",
     "triennial": "3年",
     "ungrouped": "未グループ化",
+    "unknown": "不明",
     "update": "更新",
     "update_available": "新しいバージョンがあります",
     "updated_successfully": "更新されました",
@@ -459,8 +493,6 @@
     "default_on": "新規サーバーで既定有効",
     "default_on_description": "有効にすると、新しく追加されるサーバーで自動的にこの監視が開始されます。既存のサーバーには影響しません。",
     "default_on_short": "既定有効",
-    "disk_usage_estimate": "必要なディスクスペースの見積もり",
-    "disk_usage_with_settings": "設定された {{hour}} 時間の保存時間に基づき、{{space}} のディスクスペースが必要です。",
     "interval": "間隔",
     "server_view": "サーバービュー",
     "target": "ターゲット",
@@ -562,6 +594,34 @@
       "header_description": "サイトのヘッダーにカスタム HTML/CSS/JavaScript を追加します。これらの内容はすべてのページで読み込まれます",
       "note": "カスタムテーマを使用している場合、パーソナライズされた内容は上書きされる可能性があります。コードの安全性を確保し、信頼できない内容の使用を避けてください。"
     },
+    "database": {
+      "actions": {
+        "optimize": "MySQL / MariaDB テーブルを最適化（OPTIMIZE TABLE）",
+        "vacuum": "SQLite ファイル領域を回収（VACUUM）",
+        "vacuum_full": "PostgreSQL テーブルを完全回収・分析（VACUUM (FULL, ANALYZE)）"
+      },
+      "confirm_description": "データベースのメンテナンス中はデータベースがロックされ、Komari が一時的に停止する場合があります。以下の操作を確認してください。",
+      "confirm_title": "データベースメンテナンスの確認",
+      "invalid_response": "サーバーから無効なデータベース情報が返されました",
+      "load_error": "データベース情報の読み込みに失敗しました",
+      "local_total": "ローカルデータベース合計",
+      "local_total_description": "メインデータベースとローカル保存の監視データベース",
+      "locations": {
+        "external": "外部",
+        "local": "ローカル"
+      },
+      "main": "メインデータベース",
+      "maintaining": "メンテナンス中...",
+      "maintenance_button": "領域を回収",
+      "maintenance_description": "メンテナンス中はデータベースがロックされ、Komari が一時的に応答しない場合があります。",
+      "maintenance_error": "データベースのメンテナンスに失敗しました",
+      "maintenance_partial_failure": "データベースのメンテナンスは終了しましたが、失敗した操作があります",
+      "maintenance_success": "データベースのメンテナンスが完了しました",
+      "maintenance_title": "データベースメンテナンス",
+      "monitoring": "監視データベース",
+      "operation_failed": "操作に失敗しました",
+      "title": "データベース"
+    },
     "general": {
       "auto_discovery": "自動検出",
       "auto_discovery_key": "自動検出キー",
@@ -583,6 +643,205 @@
     },
     "invalid_integer": "無効な整数",
     "invalid_number": "無効な数字",
+    "metrics": {
+      "advanced_title": "詳細オプション",
+      "batch_description": "複数のメトリクスを選択し、同じ生データ保持日数を一括で設定します。",
+      "batch_edit": "一括設定",
+      "batch_search_placeholder": "メトリクスを検索",
+      "batch_select_required": "メトリクスを1つ以上選択してください",
+      "batch_title": "保持日数の一括設定",
+      "cancel_migration": "移行をキャンセル",
+      "canceling": "キャンセル中...",
+      "conns_invalid": "有効な接続数を入力してください",
+      "current_status": "現在の状態",
+      "dsn_description": "現在稼働中の監視データベースの接続文字列。接続文字列からデータベースの種類（SQLite / MySQL / PostgreSQL）を自動判別します。SQLite：./data/metrics.db；MySQL：user:password@tcp(host:3306)/metrics?charset=utf8mb4&parseTime=True；PostgreSQL：host=localhost user=komari password=secret dbname=metrics port=5432 sslmode=disable",
+      "dsn_title": "接続文字列（DSN）",
+      "downsampling_description": "有効にすると、生のサンプルを15分間保持し、それ以前のデータを1分、5分、1時間の階層に集約します。無効にすると新しいダウンサンプリングデータは生成されず、生のサンプルは各メトリクスの保持期間に従って削除されます。すでに削除された生データは復元できません。",
+      "downsampling_enabled": "有効",
+      "downsampling_title": "データのダウンサンプリング",
+      "fetch_metrics_failed": "メトリクス一覧の取得に失敗しました",
+      "fetch_status_failed": "移行ステータスの取得に失敗しました",
+      "loading_metrics": "メトリクスを読み込み中...",
+      "max_idle_conns_description": "データベースの最大アイドル接続数。デフォルトは 5",
+      "max_idle_conns_title": "最大アイドル接続数",
+      "max_open_conns_description": "データベースの最大接続数。デフォルトは 25",
+      "max_open_conns_title": "最大接続数",
+      "metric_description": "説明",
+      "metric_key": "メトリクスキー",
+      "metric_name": "メトリクス名",
+      "metric_type": "タイプ",
+      "metric_unit": "単位",
+      "migrated_points": "移行済みサンプル点",
+      "migration_canceled": "移行をキャンセルしました",
+      "migration_cancel_failed": "移行のキャンセルに失敗しました",
+      "migration_canceled_hint": "移行をキャンセルしました。書き込みは冪等なため、安全に移行を再開でき、重複データは発生しません。",
+      "migration_card_description": "監視データのソースデータベース（デフォルトはローカル SQLite ./data/metrics.db、または前回使用したデータベース）の履歴データを、現在稼働中の監視ターゲットデータベースへ移します。",
+      "migration_card_title": "データベース移行",
+      "migration_completed_hint": "移行が完了しました。すべての履歴データが現在のターゲットデータベースへ移されました。",
+      "migration_failed_hint": "移行に失敗しました。ソース/ターゲットのデータベース接続とサーバーログを確認し、修正後に移行を再開してください。",
+      "migration_in_progress_hint": "移行を実行中です。サーバーは通常どおり動作します。大量のデータの場合は時間がかかることがあります。",
+      "migration_progress": "移行の進捗",
+      "migration_source": "ソース",
+      "migration_start_failed": "移行の開始に失敗しました",
+      "migration_started": "移行を開始しました",
+      "migration_target": "ターゲット",
+      "migration_title": "移行",
+      "no_metrics": "メトリクス定義がありません",
+      "retention_description": "データの保持日数。デフォルトは 90",
+      "retention_days": "保持日数",
+      "retention_invalid": "有効な保持日数を入力してください",
+      "retention_save_failed": "保持日数の保存に失敗しました",
+      "retention_saved": "保持日数を保存しました",
+      "retention_table_description": "監視メトリクスごとに生データの保持日数を設定します。デフォルト保持期間は {{days}} 日です。",
+      "retention_title": "保持日数",
+      "save_changes": "変更を保存",
+      "source_dsn_description": "空欄の場合、前回使用した監視データベース（デフォルトはローカル SQLite ./data/metrics.db）を自動的にソースとして使用します。ソースの接続文字列を手動で入力することもできます。ターゲットは現在稼働中の監視データベースに固定されます。",
+      "source_dsn_placeholder": "空欄で自動判別、またはソースの DSN を入力",
+      "source_dsn_title": "ソース接続文字列（DSN、任意）",
+      "start_again": "再移行",
+      "start_migration": "移行を開始",
+      "starting": "開始中...",
+      "status": {
+        "canceled": "キャンセル済み",
+        "completed": "完了",
+        "failed": "失敗",
+        "idle": "アイドル",
+        "running": "進行中"
+      },
+      "table_prefix_description": "監視テーブルの接頭辞。デフォルトは metric_",
+      "table_prefix_title": "テーブル接頭辞",
+      "title": "監視データベース",
+      "system": {
+        "cpu": {
+          "usage": {
+            "name": "CPU使用率",
+            "description": "CPU使用率のパーセンテージ"
+          }
+        },
+        "gpu": {
+          "usage": {
+            "name": "GPU使用率",
+            "description": "ノード全体の平均GPU使用率"
+          },
+          "device": {
+            "usage": {
+              "name": "GPUデバイス使用率",
+              "description": "GPUデバイスごとの使用率"
+            }
+          },
+          "memory": {
+            "used": {
+              "name": "GPU使用メモリ",
+              "description": "現在使用中のGPUメモリ"
+            },
+            "total": {
+              "name": "GPU総メモリ",
+              "description": "GPUメモリの総容量"
+            }
+          },
+          "temperature": {
+            "name": "GPU温度",
+            "description": "GPU温度"
+          }
+        },
+        "memory": {
+          "used": {
+            "name": "使用メモリ",
+            "description": "現在使用中のメモリ"
+          },
+          "total": {
+            "name": "総メモリ",
+            "description": "メモリ総容量"
+          }
+        },
+        "swap": {
+          "used": {
+            "name": "使用スワップ",
+            "description": "現在使用中のスワップ領域"
+          },
+          "total": {
+            "name": "総スワップ",
+            "description": "スワップ領域の総容量"
+          }
+        },
+        "load": {
+          "average": {
+            "name": "ロードアベレージ",
+            "description": "システムのロードアベレージ"
+          }
+        },
+        "temperature": {
+          "name": "システム温度",
+          "description": "システム温度"
+        },
+        "disk": {
+          "used": {
+            "name": "使用ディスク",
+            "description": "現在使用中のディスク容量"
+          },
+          "total": {
+            "name": "総ディスク",
+            "description": "ディスク総容量"
+          }
+        },
+        "net": {
+          "in": {
+            "rate": {
+              "name": "ネットワーク受信速度",
+              "description": "ネットワーク受信転送速度"
+            }
+          },
+          "out": {
+            "rate": {
+              "name": "ネットワーク送信速度",
+              "description": "ネットワーク送信転送速度"
+            }
+          },
+          "total": {
+            "up": {
+              "name": "累計アップロード",
+              "description": "ネットワーク累計アップロード量"
+            },
+            "down": {
+              "name": "累計ダウンロード",
+              "description": "ネットワーク累計ダウンロード量"
+            }
+          }
+        },
+        "traffic": {
+          "up": {
+            "name": "アップロード増分",
+            "description": "1回の報告間隔内のアップロード増分"
+          },
+          "down": {
+            "name": "ダウンロード増分",
+            "description": "1回の報告間隔内のダウンロード増分"
+          }
+        },
+        "process": {
+          "count": {
+            "name": "プロセス数",
+            "description": "実行中のプロセス数"
+          }
+        },
+        "connections": {
+          "tcp": {
+            "name": "TCP接続数",
+            "description": "TCP接続の数"
+          },
+          "udp": {
+            "name": "UDP接続数",
+            "description": "UDP接続の数"
+          }
+        },
+        "ping": {
+          "latency_ms": {
+            "name": "Ping遅延",
+            "description": "ミリ秒単位のPing遅延"
+          }
+        }
+      }
+    },
     "missing_required_fields": "必須フィールドを入力してください: {{fieldNames}}",
     "nezha": {
       "description": "哪吒の互換オプション、Komari は基本的な監視のみを処理でき、遅延検出、リモートコントロール、NAT および内部ネットワークの貫通などの機能は使用できません。エンターテインメント機能は、今後のメンテナンスの予定はありません。（NTR愛好者）",
@@ -641,51 +900,6 @@
       "test_description": "テストメッセージを送信",
       "test_title": "テストメッセージを送信",
       "title": "通知"
-    },
-    "record": {
-      "enabled": "履歴を有効にする",
-      "enabled_description": "サーバーの履歴負荷詳細や Ping 記録などを記録します",
-      "expected_usage": "サーバーのデータを保存するのに必要なディスクスペースは約 {{space}} です（Ping データは設定した時間間隔に依存します）",
-      "invalid_preserve_time": "無効な時間",
-      "ping_record_preserve_time": "Ping データ保存時間",
-      "record_preserve_time": "保存時間",
-      "record_preserve_time_description": "Komari は設定した時間数に従って記録を保存し、期限切れのものをクリーンアップします",
-      "record_preserve_time_label": "負荷データ保存時間",
-      "title": "履歴"
-    },
-    "reverse_proxy": {
-      "binary_label": "バイナリ",
-      "cloudflare_description": "Komari の設定パネルから cloudflared を直接起動・管理します。",
-      "cloudflare_title": "Cloudflare Tunnel",
-      "cloudflare_token": "Cloudflare Tunnel トークン",
-      "cloudflare_token_help": "保存済みトークンはサーバー側で暗号化されます。フロントエンドには保存済みかどうかだけが返され、トークンの平文は返されません。",
-      "cloudflare_token_placeholder": "Cloudflare Tunnel トークンを入力してください",
-      "cloudflare_token_stored_placeholder": "••••••••••••••••（安全に保存済み。ブラウザには返されません）",
-      "cloudflared_label": "cloudflared",
-      "confirmation_help": "現在パスワードログインは無効です。確認のため `STOP CLOUDFLARED` と入力してください。",
-      "confirmation_text": "確認テキスト",
-      "current_password": "現在のパスワード",
-      "env_token_hint": "環境変数 `KOMARI_CLOUDFLARED_TOKEN` が検出されました。Komari の再起動後に cloudflared の自動復元を試みます。",
-      "error_message": "エラーメッセージ",
-      "fetch_status_failed": "cloudflared の状態取得に失敗しました",
-      "guide_prefix": "トークンの取得方法が分からない場合は、Uptime Kuma のガイドを参照してください：",
-      "install_hint": "Docker 以外の環境では、事前に cloudflared を手動でインストールするか、`KOMARI_CLOUDFLARED_BIN` で cloudflared のパスを指定してください。",
-      "installed": "インストール済み",
-      "latest_status": "最新の状態",
-      "not_installed": "未インストール",
-      "recent_logs": "最近のログ",
-      "remove_token": "保存済みトークンを削除",
-      "remove_token_success": "Cloudflare Tunnel トークンを削除しました",
-      "running": "実行中",
-      "start_cloudflared": "cloudflared を起動",
-      "start_success": "cloudflared を起動しました",
-      "status_label": "状態",
-      "stop_cloudflared": "cloudflared を停止",
-      "stop_dialog_description": "現在この Tunnel 経由で Komari にアクセスしている場合、cloudflared を停止すると現在のセッションがすぐ切断される可能性があります。",
-      "stop_dialog_title": "cloudflared を停止",
-      "stop_success": "cloudflared を停止しました",
-      "stopped": "停止中",
-      "title": "リバースプロキシ"
     },
     "settings_save_failed": "設定の保存に失敗しました",
     "settings_saved": "設定が保存されました",

@@ -62,9 +62,22 @@ interface NodeListContextType {
   refresh: () => void;
 }
 
-const NodeListContext = React.createContext<NodeListContextType | undefined>(
-  undefined
-);
+const NODE_LIST_CONTEXT_KEY = "__komariNodeListContext" as const;
+
+type NodeListContextGlobal = typeof globalThis & {
+  [NODE_LIST_CONTEXT_KEY]?: React.Context<NodeListContextType | undefined>;
+};
+
+const globalNodeListContext = globalThis as NodeListContextGlobal;
+const NodeListContext =
+  globalNodeListContext[NODE_LIST_CONTEXT_KEY] ??
+  (globalNodeListContext[NODE_LIST_CONTEXT_KEY] =
+    React.createContext<NodeListContextType | undefined>(undefined));
+
+const sameNodeBasicInfo = (left: NodeBasicInfo, right: NodeBasicInfo) =>
+  (Object.keys(right) as Array<keyof NodeBasicInfo>).every(
+    (key) => left[key] === right[key],
+  );
 
 export const NodeListProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -126,7 +139,23 @@ export const NodeListProvider: React.FC<{ children: React.ReactNode }> = ({
           ipv4: n.ipv4,
           ipv6: n.ipv6,
         }));
-        setNodeList(list);
+        setNodeList((previous) => {
+          if (!previous) return list;
+          const previousByUuid = new Map(
+            previous.map((node) => [node.uuid, node]),
+          );
+          let changed = previous.length !== list.length;
+          const shared = list.map((node, index) => {
+            const previousNode = previousByUuid.get(node.uuid);
+            if (previousNode && sameNodeBasicInfo(previousNode, node)) {
+              if (previous[index] !== previousNode) changed = true;
+              return previousNode;
+            }
+            changed = true;
+            return node;
+          });
+          return changed ? shared : previous;
+        });
       })
       .catch((err: any) => {
         if (!mountedRef.current || refreshSeq !== refreshSeqRef.current) return;
@@ -155,10 +184,12 @@ export const NodeListProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const useNodeList = () => {
+export function useNodeList(): NodeListContextType;
+export function useNodeList(required: false): NodeListContextType | undefined;
+export function useNodeList(required = true) {
   const context = React.useContext(NodeListContext);
-  if (!context) {
+  if (!context && required) {
     throw new Error("useNodeList must be used within a NodeListProvider");
   }
   return context;
-};
+}

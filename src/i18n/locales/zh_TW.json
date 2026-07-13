@@ -104,15 +104,11 @@
     "nodeTable": {
       "addNode": "添加節點",
       "autoDiscovery": {
-        "title": "自動發現",
         "disabledDescription": "開啟自動發現後，無需逐台手動添加節點。只要在目標伺服器上執行一條命令，Agent 就會攜帶金鑰自動註冊並上線，非常適合批次部署多台伺服器。",
         "enabledDescription": "在目標伺服器上執行下面的命令，Agent 將自動註冊並上線，無需手動添加節點。",
         "goToSettings": "前往「設定」開啟自動發現",
+        "title": "自動發現",
         "tryIt": "試試自動發現"
-      },
-      "emptyGuide": {
-        "title": "還沒有任何伺服器",
-        "description": "點擊右上角的「添加節點」開始，或開啟自動發現批次接入伺服器。"
       },
       "autoRenewal": "自動續費",
       "autoRenewalDescription": "如果伺服器過期且當前線上，Komari 將自動將到期時間設定為下個自然月（年）",
@@ -132,6 +128,10 @@
       "disableWebSsh": "禁用遠程控制",
       "dragToReorder": "長按拖拽重新排序",
       "editNodePrice": "編輯帳單",
+      "emptyGuide": {
+        "description": "點擊右上角的「添加節點」開始，或開啟自動發現批次接入伺服器。",
+        "title": "還沒有任何伺服器"
+      },
       "enableGpuMonitoring": "啟用詳細 GPU 監控",
       "errorLoadNodeList": "無法加載節點列表",
       "errorRefreshNodeList": "刷新列表失敗",
@@ -184,17 +184,27 @@
   },
   "cancel": "取消",
   "chart": {
+    "addChart": "新增圖表",
+    "addMetric": "新增指標",
     "avg": "平均值",
     "connections": "連接數",
     "cpu_usage": "CPU 使用率",
+    "customRange": "自訂",
     "cutPeak": "平滑",
     "cutPeak_tips": "關於數據平滑的提示",
+    "dashboard": "圖表",
     "days": "{{count}} 天",
     "disk_used": "磁碟",
+    "downsampleAlgorithm": "降採樣",
+    "endTime": "結束時間",
+    "fillEmpty": "補空值",
+    "globalTemplateSaveFailed": "儲存全域圖表範本失敗",
+    "globalTemplateSaved": "全域圖表範本已儲存",
     "gpu_memory": "顯存使用率",
     "hideAll": "隱藏全部",
     "hours": "{{count}} 小時",
     "interval": "檢測間隔",
+    "invalidTimeRange": "開始時間必須早於結束時間",
     "latest": "最新",
     "loss_tips": "丟包率計算演算法並不準確，謹慎參考。  波動：延遲的拖尾波動，數值越高，波動越大，計算方法：(P99 - P50) / max(min(P50, 50), 10)。",
     "lossRate": "丟包",
@@ -204,13 +214,36 @@
     "network_down": "下載",
     "network_up": "上傳",
     "process": "進程數",
+    "query": "查詢",
+    "quickRange": "快速選擇",
+    "recentDay": "最近 1 天",
+    "recentDays": "最近 {{count}} 天",
+    "recentWeek": "最近 1 週",
+    "removeMetric": "刪除指標",
+    "sampling": {
+      "average": "平均值",
+      "first": "第一個值",
+      "last": "最後一個值",
+      "max": "最大值",
+      "min": "最小值",
+      "p70": "第 70 百分位",
+      "p95": "第 95 百分位",
+      "p99": "第 99 百分位",
+      "stddev": "標準差"
+    },
+    "samplingAlgorithm": "採樣演算法",
+    "samplingAlgorithmTips": "<b>降採樣說明</b><br/>查詢歷史時間範圍時，後端會依照請求的時間間隔把資料點歸入對齊後的固定時間桶，再用目前選擇的演算法為每個時間桶計算一個值。<br/><br/>平均值/最小值/最大值/第一個值/最後一個值/標準差和百分位都會在每個時間桶內部計算。空時間桶會保持為空，所以圖表上的斷點仍然表示該時間段沒有資料。",
+    "saveGlobalTemplate": "儲存為全域範本",
     "showAll": "顯示全部",
+    "startTime": "開始時間",
     "swap_used": "虛擬記憶體",
     "tcp_connections": "TCP",
     "total": "樣本數量",
     "type": "類型",
     "udp_connections": "UDP",
     "usage": "使用率",
+    "valid": "有效樣本",
+    "approximate": "近似",
     "volatility": "波動"
   },
   "close": "關閉",
@@ -313,6 +346,7 @@
     "title": "標題",
     "triennial": "三年",
     "ungrouped": "未分組",
+    "unknown": "未知",
     "update": "更新",
     "update_available": "有新版本",
     "updated_successfully": "成功更新",
@@ -459,8 +493,6 @@
     "default_on": "預設啟用",
     "default_on_description": "開啟後，新加入的伺服器會自動啟用此監測；已存在的伺服器不受影響。",
     "default_on_short": "預設啟用",
-    "disk_usage_estimate": "預計需要磁碟空間",
-    "disk_usage_with_settings": "根據設定的 {{hour}} 小時保存時間，需要使用 {{space}} 磁碟空間。",
     "interval": "間隔",
     "server_view": "伺服器檢視",
     "target": "目標",
@@ -562,6 +594,34 @@
       "header_description": "添加自定義 HTML/CSS/JavaScript 到站點頭部，這些內容將會在所有頁面加載",
       "note": "個性化內容在使用自定義主題時可能會被覆蓋。請確保代碼的安全性，避免使用不受信任的內容。"
     },
+    "database": {
+      "actions": {
+        "optimize": "最佳化 MySQL / MariaDB 資料表（OPTIMIZE TABLE）",
+        "vacuum": "回收 SQLite 檔案空間（VACUUM）",
+        "vacuum_full": "完整回收並分析 PostgreSQL 資料表（VACUUM (FULL, ANALYZE)）"
+      },
+      "confirm_description": "資料庫維護可能鎖定資料庫並暫時阻塞 Komari，請確認以下操作。",
+      "confirm_title": "確認資料庫維護",
+      "invalid_response": "伺服器返回了無效的資料庫資訊",
+      "load_error": "讀取資料庫資訊失敗",
+      "local_total": "本機資料庫合計",
+      "local_total_description": "主資料庫與儲存在本機的監控資料庫佔用",
+      "locations": {
+        "external": "外部",
+        "local": "本機"
+      },
+      "main": "主資料庫",
+      "maintaining": "維護中...",
+      "maintenance_button": "回收空間",
+      "maintenance_description": "維護期間資料庫可能被鎖定，Komari 可能暫時無法回應。",
+      "maintenance_error": "資料庫維護失敗",
+      "maintenance_partial_failure": "資料庫維護已結束，但存在失敗操作",
+      "maintenance_success": "資料庫維護完成",
+      "maintenance_title": "資料庫維護",
+      "monitoring": "監控資料庫",
+      "operation_failed": "操作失敗",
+      "title": "資料庫"
+    },
     "general": {
       "auto_discovery": "自動發現",
       "auto_discovery_key": "自動發現密鑰",
@@ -583,6 +643,205 @@
     },
     "invalid_integer": "無效的整數",
     "invalid_number": "無效的數字",
+    "metrics": {
+      "advanced_title": "進階選項",
+      "batch_description": "選擇多個指標，並為它們統一設定原始資料保留天數。",
+      "batch_edit": "批量設定",
+      "batch_search_placeholder": "搜尋指標",
+      "batch_select_required": "請至少選擇一個指標",
+      "batch_title": "批量設定保留天數",
+      "cancel_migration": "取消遷移",
+      "canceling": "取消中...",
+      "conns_invalid": "請輸入有效的連線數",
+      "current_status": "目前狀態",
+      "dsn_description": "目前執行中的監控資料庫連線字串，系統會依連線字串自動辨識資料庫類型（SQLite / MySQL / PostgreSQL）。SQLite：./data/metrics.db；MySQL：user:password@tcp(host:3306)/metrics?charset=utf8mb4&parseTime=True；PostgreSQL：host=localhost user=komari password=secret dbname=metrics port=5432 sslmode=disable",
+      "dsn_title": "連線字串（DSN）",
+      "downsampling_description": "啟用後，原始取樣保留 15 分鐘，歷史資料依 1 分鐘、5 分鐘及 1 小時分層彙總。關閉後不再產生降採樣資料，原始取樣依各指標的保留天數清理；已清理的原始資料不會恢復。",
+      "downsampling_enabled": "啟用",
+      "downsampling_title": "資料降採樣",
+      "fetch_metrics_failed": "取得指標列表失敗",
+      "fetch_status_failed": "取得遷移狀態失敗",
+      "loading_metrics": "正在載入指標...",
+      "max_idle_conns_description": "資料庫最大閒置連線數，預設 5",
+      "max_idle_conns_title": "最大閒置連線數",
+      "max_open_conns_description": "資料庫最大連線數，預設 25",
+      "max_open_conns_title": "最大連線數",
+      "metric_description": "描述",
+      "metric_key": "指標 Key",
+      "metric_name": "指標名稱",
+      "metric_type": "類型",
+      "metric_unit": "單位",
+      "migrated_points": "已搬運取樣點",
+      "migration_canceled": "遷移已取消",
+      "migration_cancel_failed": "取消遷移失敗",
+      "migration_canceled_hint": "遷移已取消。由於寫入是冪等的，可安全地重新發起遷移，不會產生重複資料。",
+      "migration_card_description": "把某個監控資料來源庫（預設本機 SQLite ./data/metrics.db，或上一個使用過的資料庫）中的歷史資料搬運到目前執行中的監控目標庫。",
+      "migration_card_title": "資料庫遷移",
+      "migration_completed_hint": "遷移已完成，歷史資料已全部搬運到目前目標庫。",
+      "migration_failed_hint": "遷移失敗。請檢查來源庫/目標庫連線設定與伺服器日誌，修復後重新開始遷移。",
+      "migration_in_progress_hint": "遷移正在進行中，伺服器繼續正常運作。大資料量可能需要較長時間。",
+      "migration_progress": "遷移進度",
+      "migration_source": "來源庫",
+      "migration_start_failed": "啟動遷移失敗",
+      "migration_started": "遷移已開始",
+      "migration_target": "目標庫",
+      "migration_title": "遷移",
+      "no_metrics": "暫無指標定義",
+      "retention_description": "資料保留天數，預設 90",
+      "retention_days": "保留天數",
+      "retention_invalid": "請輸入有效的保留天數",
+      "retention_save_failed": "儲存保留天數失敗",
+      "retention_saved": "保留天數已儲存",
+      "retention_table_description": "為每個監控指標設定原始資料保留天數。預設保留 {{days}} 天。",
+      "retention_title": "資料保留天數",
+      "save_changes": "儲存變更",
+      "source_dsn_description": "留空時自動使用上一個使用過的監控資料庫（預設本機 SQLite ./data/metrics.db）作為來源庫；也可手動填寫來源庫連線字串。目標庫固定為目前執行中的監控資料庫。",
+      "source_dsn_placeholder": "留空自動推斷，或填寫來源庫 DSN",
+      "source_dsn_title": "來源庫連線字串（DSN，可選）",
+      "start_again": "重新遷移",
+      "start_migration": "開始遷移",
+      "starting": "啟動中...",
+      "status": {
+        "canceled": "已取消",
+        "completed": "已完成",
+        "failed": "失敗",
+        "idle": "閒置",
+        "running": "進行中"
+      },
+      "table_prefix_description": "監控表名前綴，預設 metric_",
+      "table_prefix_title": "表名前綴",
+      "title": "監控資料庫",
+      "system": {
+        "cpu": {
+          "usage": {
+            "name": "CPU 使用率",
+            "description": "CPU 使用率百分比"
+          }
+        },
+        "gpu": {
+          "usage": {
+            "name": "GPU 使用率",
+            "description": "節點級平均 GPU 使用率百分比"
+          },
+          "device": {
+            "usage": {
+              "name": "GPU 裝置使用率",
+              "description": "單個 GPU 裝置的使用率"
+            }
+          },
+          "memory": {
+            "used": {
+              "name": "GPU 已用顯存",
+              "description": "GPU 目前已用顯存"
+            },
+            "total": {
+              "name": "GPU 總顯存",
+              "description": "GPU 總顯存容量"
+            }
+          },
+          "temperature": {
+            "name": "GPU 溫度",
+            "description": "GPU 溫度"
+          }
+        },
+        "memory": {
+          "used": {
+            "name": "已用記憶體",
+            "description": "目前已用記憶體"
+          },
+          "total": {
+            "name": "總記憶體",
+            "description": "記憶體總容量"
+          }
+        },
+        "swap": {
+          "used": {
+            "name": "已用交換空間",
+            "description": "目前已用交換空間"
+          },
+          "total": {
+            "name": "總交換空間",
+            "description": "交換空間總容量"
+          }
+        },
+        "load": {
+          "average": {
+            "name": "系統負載",
+            "description": "系統負載平均值"
+          }
+        },
+        "temperature": {
+          "name": "系統溫度",
+          "description": "系統溫度"
+        },
+        "disk": {
+          "used": {
+            "name": "已用磁碟",
+            "description": "目前已用磁碟空間"
+          },
+          "total": {
+            "name": "總磁碟",
+            "description": "磁碟總容量"
+          }
+        },
+        "net": {
+          "in": {
+            "rate": {
+              "name": "網路入站速率",
+              "description": "網路入站傳輸速率"
+            }
+          },
+          "out": {
+            "rate": {
+              "name": "網路出站速率",
+              "description": "網路出站傳輸速率"
+            }
+          },
+          "total": {
+            "up": {
+              "name": "累計上傳",
+              "description": "網路累計上傳流量"
+            },
+            "down": {
+              "name": "累計下載",
+              "description": "網路累計下載流量"
+            }
+          }
+        },
+        "traffic": {
+          "up": {
+            "name": "上傳流量增量",
+            "description": "單次上報週期內的上傳流量增量"
+          },
+          "down": {
+            "name": "下載流量增量",
+            "description": "單次上報週期內的下載流量增量"
+          }
+        },
+        "process": {
+          "count": {
+            "name": "行程數量",
+            "description": "正在執行的行程數量"
+          }
+        },
+        "connections": {
+          "tcp": {
+            "name": "TCP 連線數",
+            "description": "TCP 連線數量"
+          },
+          "udp": {
+            "name": "UDP 連線數",
+            "description": "UDP 連線數量"
+          }
+        },
+        "ping": {
+          "latency_ms": {
+            "name": "Ping 延遲",
+            "description": "Ping 延遲，單位毫秒"
+          }
+        }
+      }
+    },
     "missing_required_fields": "請填寫必填字段: {{fieldNames}}",
     "nezha": {
       "description": "哪吒的相容選項，Komari 只能處理基礎的監控，無法使用延遲檢測、遠端控制、NAT和內網穿透等功能。娛樂功能，後續無維護打算。（NTR愛好者）",
@@ -641,51 +900,6 @@
       "test_description": "發送測試消息",
       "test_title": "發送測試消息",
       "title": "通知"
-    },
-    "record": {
-      "enabled": "開啟歷史記錄",
-      "enabled_description": "記錄伺服器歷史負載詳情和Ping記錄等",
-      "expected_usage": "保存一台伺服器的數據預計需要{{space}}磁碟空間（Ping數據取決於設置的時間間隔）",
-      "invalid_preserve_time": "無效的時間",
-      "ping_record_preserve_time": "Ping數據保存時間",
-      "record_preserve_time": "保存時間",
-      "record_preserve_time_description": "Komari將會按照設定的小時數保存記錄，過期清理",
-      "record_preserve_time_label": "負載數據保存時間",
-      "title": "歷史記錄"
-    },
-    "reverse_proxy": {
-      "binary_label": "二進位路徑",
-      "cloudflare_description": "在 Komari 設定面板中直接啟動與管理 cloudflared。",
-      "cloudflare_title": "Cloudflare Tunnel",
-      "cloudflare_token": "Cloudflare Tunnel 權杖",
-      "cloudflare_token_help": "已儲存的令牌會在服務端加密儲存，前端只會知道是否已儲存，不會拿到明文令牌。",
-      "cloudflare_token_placeholder": "請輸入 Cloudflare Tunnel 權杖",
-      "cloudflare_token_stored_placeholder": "••••••••••••••••（已安全儲存，不會返回到瀏覽器）",
-      "cloudflared_label": "cloudflared",
-      "confirmation_help": "當前已停用密碼登入。請輸入 `STOP CLOUDFLARED` 以確認。",
-      "confirmation_text": "確認文字",
-      "current_password": "目前密碼",
-      "env_token_hint": "已偵測到環境變數 `KOMARI_CLOUDFLARED_TOKEN`，Komari 重新啟動後會嘗試自動恢復 cloudflared。",
-      "error_message": "錯誤訊息",
-      "fetch_status_failed": "取得 cloudflared 狀態失敗",
-      "guide_prefix": "不知道如何取得權杖？請閱讀 Uptime Kuma 指南：",
-      "install_hint": "非 Docker 部署時，請先手動安裝 cloudflared，或透過 `KOMARI_CLOUDFLARED_BIN` 指定 cloudflared 二進位路徑。",
-      "installed": "已安裝",
-      "latest_status": "最近狀態",
-      "not_installed": "未安裝",
-      "recent_logs": "近期日誌",
-      "remove_token": "移除已儲存的權杖",
-      "remove_token_success": "Cloudflare Tunnel 權杖已移除",
-      "running": "執行中",
-      "start_cloudflared": "啟動 cloudflared",
-      "start_success": "cloudflared 已啟動",
-      "status_label": "狀態",
-      "stop_cloudflared": "停止 cloudflared",
-      "stop_dialog_description": "如果你目前正透過這個 Tunnel 存取 Komari，停止 cloudflared 可能會立即中斷目前工作階段。",
-      "stop_dialog_title": "停止 cloudflared",
-      "stop_success": "cloudflared 已停止",
-      "stopped": "已停止",
-      "title": "反向代理"
     },
     "settings_save_failed": "保存設置失敗",
     "settings_saved": "設置已保存",

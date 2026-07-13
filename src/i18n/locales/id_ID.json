@@ -104,15 +104,11 @@
     "nodeTable": {
       "addNode": "Tambah Node",
       "autoDiscovery": {
-        "title": "Penemuan otomatis",
         "disabledDescription": "Dengan penemuan otomatis aktif, Anda tidak perlu menambahkan node satu per satu. Cukup jalankan satu perintah di server target dan Agent akan otomatis terdaftar dan online menggunakan kunci tersebut. Ideal untuk men-deploy banyak server sekaligus.",
         "enabledDescription": "Jalankan perintah di bawah ini pada server target. Agent akan otomatis terdaftar dan online tanpa perlu membuat node secara manual.",
         "goToSettings": "Buka Pengaturan Umum untuk mengaktifkan penemuan otomatis",
+        "title": "Penemuan otomatis",
         "tryIt": "Coba penemuan otomatis"
-      },
-      "emptyGuide": {
-        "title": "Belum ada server",
-        "description": "Klik \"Tambah Node\" di kanan atas untuk memulai, atau aktifkan penemuan otomatis untuk menambahkan server secara massal."
       },
       "autoRenewal": "Perpanjangan Otomatis",
       "autoRenewalDescription": "Jika server kedaluwarsa dan masih online, Komari akan otomatis mengatur waktu kedaluwarsa ke bulan (atau tahun) berikutnya.",
@@ -132,6 +128,10 @@
       "disableWebSsh": "Nonaktifkan Kontrol Jarak Jauh",
       "dragToReorder": "Tekan lama dan seret untuk mengurutkan ulang",
       "editNodePrice": "Ubah Harga",
+      "emptyGuide": {
+        "description": "Klik \"Tambah Node\" di kanan atas untuk memulai, atau aktifkan penemuan otomatis untuk menambahkan server secara massal.",
+        "title": "Belum ada server"
+      },
       "enableGpuMonitoring": "Aktifkan pemantauan GPU terperinci",
       "errorLoadNodeList": "Gagal memuat daftar node",
       "errorRefreshNodeList": "Gagal memperbarui daftar",
@@ -184,17 +184,27 @@
   },
   "cancel": "Batal",
   "chart": {
+    "addChart": "Tambah grafik",
+    "addMetric": "Tambah metrik",
     "avg": "Rata-rata",
     "connections": "Koneksi",
     "cpu_usage": "Penggunaan CPU",
+    "customRange": "Rentang khusus",
     "cutPeak": "Haluskan",
     "cutPeak_tips": "<h2 class=\"text-lg font-bold\">Tips Penghalusan Data</h2><p>Jika Anda mengaktifkan penghalusan, kurva yang Anda lihat pada grafik statistik akan diproses menggunakan algoritma <strong>Exponentially Weighted Moving Average (EWMA)</strong>, yaitu teknik penghalusan data yang umum digunakan.</p></br><p>Penting untuk diketahui bahwa nilai yang ditampilkan pada kurva hasil penghalusan EWMA <strong>bukanlah data mentah asli</strong>. Nilai tersebut merupakan <strong>garis tren yang dihaluskan</strong> berdasarkan perhitungan algoritma EWMA, yang bertujuan untuk mengurangi fluktuasi data dan memudahkan Anda dalam mengidentifikasi pola serta tren data.</p></br><p>Oleh karena itu, nilai yang Anda lihat lebih merupakan <strong>presentasi visual</strong> untuk membantu memahami arah dan tren data secara keseluruhan, bukan nilai pasti pada setiap titik waktu. Jika Anda ingin melihat data mentah secara spesifik, silakan lihat tampilan data tanpa penghalusan.</p>",
+    "dashboard": "Grafik",
     "days": "{{count}} Hari",
     "disk_used": "Disk",
+    "downsampleAlgorithm": "Downsample",
+    "endTime": "Waktu selesai",
+    "fillEmpty": "Isi celah",
+    "globalTemplateSaveFailed": "Gagal menyimpan templat grafik global",
+    "globalTemplateSaved": "Templat grafik global disimpan",
     "gpu_memory": "Penggunaan Memori GPU",
     "hideAll": "Sembunyikan Semua",
     "hours": "{{count}} Jam",
     "interval": "Interval Deteksi",
+    "invalidTimeRange": "Waktu mulai harus lebih awal dari waktu selesai",
     "latest": "Terbaru",
     "loss_tips": "Algoritma perhitungan tingkat kehilangan paket kurang akurat; harap gunakan dengan hati-hati. Vol (volatilitas): Fluktuasi akhir latensi, semakin tinggi nilainya, semakin besar fluktuasinya. Rumus: (P99 - P50) / max(min(P50, 50), 10).",
     "lossRate": "Kehilangan",
@@ -204,13 +214,36 @@
     "network_down": "Unduh",
     "network_up": "Unggah",
     "process": "Proses",
+    "query": "Kueri",
+    "quickRange": "Pilihan cepat",
+    "recentDay": "1 hari terakhir",
+    "recentDays": "{{count}} hari terakhir",
+    "recentWeek": "1 minggu terakhir",
+    "removeMetric": "Hapus metrik",
+    "sampling": {
+      "average": "Rata-rata",
+      "first": "Pertama",
+      "last": "Terakhir",
+      "max": "Maks",
+      "min": "Min",
+      "p70": "Persentil ke-70",
+      "p95": "Persentil ke-95",
+      "p99": "Persentil ke-99",
+      "stddev": "StdDev"
+    },
+    "samplingAlgorithm": "Algoritma sampling",
+    "samplingAlgorithmTips": "<b>Downsampling</b><br/>Untuk rentang historis, backend mengelompokkan titik data ke bucket waktu tetap yang disejajarkan dengan interval query, lalu menghitung satu nilai per bucket dengan algoritma yang dipilih.<br/><br/>Rata-rata/Min/Maks/Pertama/Terakhir/StdDev dan opsi persentil dihitung dari nilai di dalam setiap bucket. Bucket kosong tetap kosong, sehingga celah pada grafik tetap berarti data hilang.",
+    "saveGlobalTemplate": "Simpan sebagai templat global",
     "showAll": "Tampilkan Semua",
+    "startTime": "Waktu mulai",
     "swap_used": "Swap Terpakai",
     "tcp_connections": "TCP",
     "total": "Jumlah Sampel",
     "type": "Tipe",
     "udp_connections": "UDP",
     "usage": "Penggunaan",
+    "valid": "Sampel valid",
+    "approximate": "perkiraan",
     "volatility": "Volatilitas"
   },
   "close": "Tutup",
@@ -313,6 +346,7 @@
     "title": "Judul",
     "triennial": "Tiga Tahunan",
     "ungrouped": "Belum Dikelompokkan",
+    "unknown": "Tidak diketahui",
     "update": "Perbarui",
     "update_available": "Versi baru tersedia",
     "updated_successfully": "Berhasil diperbarui",
@@ -459,8 +493,6 @@
     "default_on": "Aktif default untuk server baru",
     "default_on_description": "Jika diaktifkan, server yang baru ditambahkan akan otomatis menjalankan pemantauan ini. Server yang sudah ada tidak terpengaruh.",
     "default_on_short": "Aktif default",
-    "disk_usage_estimate": "Perkiraan ruang disk yang dibutuhkan",
-    "disk_usage_with_settings": "Berdasarkan periode retensi {{hour}} jam yang Anda atur, Anda memerlukan ruang disk sebesar {{space}}.",
     "interval": "Interval",
     "server_view": "Tampilan Server",
     "target": "Target",
@@ -562,6 +594,34 @@
       "header_description": "Tambahkan HTML/CSS/JavaScript kustom ke header situs. Akan dimuat di semua halaman.",
       "note": "Konten personalisasi dapat ditimpa saat menggunakan tema kustom. Pastikan kode aman dan hindari konten yang tidak tepercaya."
     },
+    "database": {
+      "actions": {
+        "optimize": "Optimalkan tabel MySQL / MariaDB (OPTIMIZE TABLE)",
+        "vacuum": "Reklamasi ruang berkas SQLite (VACUUM)",
+        "vacuum_full": "Reklamasi penuh dan analisis tabel PostgreSQL (VACUUM (FULL, ANALYZE))"
+      },
+      "confirm_description": "Pemeliharaan basis data dapat mengunci basis data dan memblokir Komari sementara. Konfirmasikan operasi berikut.",
+      "confirm_title": "Konfirmasi Pemeliharaan Basis Data",
+      "invalid_response": "Server mengembalikan informasi basis data yang tidak valid",
+      "load_error": "Gagal memuat informasi basis data",
+      "local_total": "Total Basis Data Lokal",
+      "local_total_description": "Basis data utama dan basis data pemantauan yang disimpan secara lokal",
+      "locations": {
+        "external": "Eksternal",
+        "local": "Lokal"
+      },
+      "main": "Basis Data Utama",
+      "maintaining": "Memelihara...",
+      "maintenance_button": "Reklamasi Ruang",
+      "maintenance_description": "Pemeliharaan dapat mengunci basis data dan membuat Komari tidak tersedia untuk sementara.",
+      "maintenance_error": "Pemeliharaan basis data gagal",
+      "maintenance_partial_failure": "Pemeliharaan basis data selesai dengan operasi yang gagal",
+      "maintenance_success": "Pemeliharaan basis data selesai",
+      "maintenance_title": "Pemeliharaan Basis Data",
+      "monitoring": "Basis Data Pemantauan",
+      "operation_failed": "Operasi gagal",
+      "title": "Basis Data"
+    },
     "general": {
       "auto_discovery": "Penemuan Otomatis",
       "auto_discovery_key": "Kunci Penemuan Otomatis",
@@ -583,6 +643,205 @@
     },
     "invalid_integer": "Bilangan bulat tidak valid",
     "invalid_number": "Angka tidak valid",
+    "metrics": {
+      "advanced_title": "Opsi Lanjutan",
+      "batch_description": "Pilih beberapa metrik dan terapkan masa penyimpanan data mentah yang sama.",
+      "batch_edit": "Atur massal",
+      "batch_search_placeholder": "Cari metrik",
+      "batch_select_required": "Pilih setidaknya satu metrik",
+      "batch_title": "Pengaturan penyimpanan massal",
+      "cancel_migration": "Batalkan migrasi",
+      "canceling": "Membatalkan...",
+      "conns_invalid": "Masukkan jumlah koneksi yang valid",
+      "current_status": "Status saat ini",
+      "dsn_description": "String koneksi basis data pemantauan yang sedang berjalan. Jenis basis data dideteksi otomatis dari string koneksi (SQLite / MySQL / PostgreSQL). SQLite: ./data/metrics.db; MySQL: user:password@tcp(host:3306)/metrics?charset=utf8mb4&parseTime=True; PostgreSQL: host=localhost user=komari password=secret dbname=metrics port=5432 sslmode=disable",
+      "dsn_title": "String koneksi (DSN)",
+      "downsampling_description": "Jika diaktifkan, sampel mentah disimpan selama 15 menit dan data lama diagregasi dalam tingkat 1 menit, 5 menit, dan 1 jam. Jika dinonaktifkan, data downsampling baru tidak dibuat dan sampel mentah dibersihkan sesuai masa retensi setiap metrik; data mentah yang sudah dihapus tidak dapat dipulihkan.",
+      "downsampling_enabled": "Aktif",
+      "downsampling_title": "Downsampling data",
+      "fetch_metrics_failed": "Gagal mengambil daftar metrik",
+      "fetch_status_failed": "Gagal mengambil status migrasi",
+      "loading_metrics": "Memuat metrik...",
+      "max_idle_conns_description": "Jumlah maksimum koneksi idle basis data, default 5",
+      "max_idle_conns_title": "Koneksi idle maksimum",
+      "max_open_conns_description": "Jumlah maksimum koneksi terbuka basis data, default 25",
+      "max_open_conns_title": "Koneksi terbuka maksimum",
+      "metric_description": "Deskripsi",
+      "metric_key": "Key metrik",
+      "metric_name": "Nama metrik",
+      "metric_type": "Tipe",
+      "metric_unit": "Unit",
+      "migrated_points": "Titik sampel yang dipindahkan",
+      "migration_canceled": "Migrasi dibatalkan",
+      "migration_cancel_failed": "Gagal membatalkan migrasi",
+      "migration_canceled_hint": "Migrasi dibatalkan. Karena penulisan bersifat idempoten, Anda dapat memulai ulang migrasi dengan aman tanpa menghasilkan data duplikat.",
+      "migration_card_description": "Pindahkan data historis dari basis data sumber pemantauan (default SQLite lokal ./data/metrics.db, atau basis data yang digunakan sebelumnya) ke basis data target pemantauan yang sedang berjalan.",
+      "migration_card_title": "Migrasi basis data",
+      "migration_completed_hint": "Migrasi selesai. Semua data historis telah dipindahkan ke basis data target saat ini.",
+      "migration_failed_hint": "Migrasi gagal. Periksa koneksi basis data sumber/target dan log server, lalu mulai migrasi lagi.",
+      "migration_in_progress_hint": "Migrasi sedang berjalan. Server terus beroperasi secara normal. Dataset besar mungkin memerlukan waktu.",
+      "migration_progress": "Kemajuan migrasi",
+      "migration_source": "Sumber",
+      "migration_start_failed": "Gagal memulai migrasi",
+      "migration_started": "Migrasi dimulai",
+      "migration_target": "Target",
+      "migration_title": "Migrasi",
+      "no_metrics": "Tidak ada definisi metrik",
+      "retention_description": "Jumlah hari penyimpanan data, default 90",
+      "retention_days": "Hari penyimpanan",
+      "retention_invalid": "Masukkan jumlah hari yang valid",
+      "retention_save_failed": "Gagal menyimpan hari penyimpanan",
+      "retention_saved": "Hari penyimpanan disimpan",
+      "retention_table_description": "Atur hari penyimpanan data mentah untuk setiap metrik pemantauan. Penyimpanan default adalah {{days}} hari.",
+      "retention_title": "Hari penyimpanan",
+      "save_changes": "Simpan perubahan",
+      "source_dsn_description": "Kosongkan untuk otomatis menggunakan basis data pemantauan yang digunakan sebelumnya (default SQLite lokal ./data/metrics.db) sebagai sumber; atau masukkan string koneksi sumber secara manual. Target ditetapkan ke basis data pemantauan yang sedang berjalan.",
+      "source_dsn_placeholder": "Kosongkan untuk deteksi otomatis, atau masukkan DSN sumber",
+      "source_dsn_title": "String koneksi sumber (DSN, opsional)",
+      "start_again": "Migrasi lagi",
+      "start_migration": "Mulai migrasi",
+      "starting": "Memulai...",
+      "status": {
+        "canceled": "Dibatalkan",
+        "completed": "Selesai",
+        "failed": "Gagal",
+        "idle": "Diam",
+        "running": "Sedang berlangsung"
+      },
+      "table_prefix_description": "Prefiks untuk tabel pemantauan, default metric_",
+      "table_prefix_title": "Prefiks tabel",
+      "title": "Basis Data Pemantauan",
+      "system": {
+        "cpu": {
+          "usage": {
+            "name": "Penggunaan CPU",
+            "description": "Persentase penggunaan CPU"
+          }
+        },
+        "gpu": {
+          "usage": {
+            "name": "Penggunaan GPU",
+            "description": "Persentase rata-rata penggunaan GPU pada node"
+          },
+          "device": {
+            "usage": {
+              "name": "Penggunaan perangkat GPU",
+              "description": "Utilisasi tiap perangkat GPU"
+            }
+          },
+          "memory": {
+            "used": {
+              "name": "Memori GPU terpakai",
+              "description": "Memori GPU yang sedang digunakan"
+            },
+            "total": {
+              "name": "Total memori GPU",
+              "description": "Total kapasitas memori GPU"
+            }
+          },
+          "temperature": {
+            "name": "Suhu GPU",
+            "description": "Suhu GPU"
+          }
+        },
+        "memory": {
+          "used": {
+            "name": "RAM terpakai",
+            "description": "RAM yang sedang digunakan"
+          },
+          "total": {
+            "name": "Total RAM",
+            "description": "Total kapasitas RAM"
+          }
+        },
+        "swap": {
+          "used": {
+            "name": "Swap terpakai",
+            "description": "Ruang swap yang sedang digunakan"
+          },
+          "total": {
+            "name": "Total swap",
+            "description": "Total kapasitas swap"
+          }
+        },
+        "load": {
+          "average": {
+            "name": "Rata-rata beban",
+            "description": "Rata-rata beban sistem"
+          }
+        },
+        "temperature": {
+          "name": "Suhu sistem",
+          "description": "Suhu sistem"
+        },
+        "disk": {
+          "used": {
+            "name": "Disk terpakai",
+            "description": "Ruang disk yang sedang digunakan"
+          },
+          "total": {
+            "name": "Total disk",
+            "description": "Total kapasitas disk"
+          }
+        },
+        "net": {
+          "in": {
+            "rate": {
+              "name": "Laju jaringan masuk",
+              "description": "Laju transfer jaringan masuk"
+            }
+          },
+          "out": {
+            "rate": {
+              "name": "Laju jaringan keluar",
+              "description": "Laju transfer jaringan keluar"
+            }
+          },
+          "total": {
+            "up": {
+              "name": "Total unggah",
+              "description": "Unggahan jaringan kumulatif"
+            },
+            "down": {
+              "name": "Total unduh",
+              "description": "Unduhan jaringan kumulatif"
+            }
+          }
+        },
+        "traffic": {
+          "up": {
+            "name": "Delta trafik unggah",
+            "description": "Delta trafik unggah dalam satu interval laporan"
+          },
+          "down": {
+            "name": "Delta trafik unduh",
+            "description": "Delta trafik unduh dalam satu interval laporan"
+          }
+        },
+        "process": {
+          "count": {
+            "name": "Jumlah proses",
+            "description": "Jumlah proses yang berjalan"
+          }
+        },
+        "connections": {
+          "tcp": {
+            "name": "Koneksi TCP",
+            "description": "Jumlah koneksi TCP"
+          },
+          "udp": {
+            "name": "Koneksi UDP",
+            "description": "Jumlah koneksi UDP"
+          }
+        },
+        "ping": {
+          "latency_ms": {
+            "name": "Latensi ping",
+            "description": "Latensi ping dalam milidetik"
+          }
+        }
+      }
+    },
     "missing_required_fields": "Silakan isi kolom yang wajib: {{fieldNames}}",
     "nezha": {
       "description": "Opsi kompatibilitas untuk Nezha, Komari hanya dapat menangani pemantauan dasar dan tidak dapat menggunakan fitur seperti deteksi keterlambatan, kontrol jarak jauh, NAT, dan penetrasi internal. Fitur hiburan, tidak ada rencana pemeliharaan di masa depan. (Penggemar NTR)",
@@ -641,51 +900,6 @@
       "test_description": "Kirim pesan uji coba",
       "test_title": "Kirim pesan uji coba",
       "title": "Notifikasi"
-    },
-    "record": {
-      "enabled": "Aktifkan Pencatatan",
-      "enabled_description": "Catat riwayat beban server dan detail Ping, serta data lainnya.",
-      "expected_usage": "Penyimpanan data untuk satu server diperkirakan membutuhkan ruang disk sebesar {{space}} (data Ping tergantung pada interval waktu yang ditetapkan)",
-      "invalid_preserve_time": "Waktu tidak valid",
-      "ping_record_preserve_time": "Periode penyimpanan data Ping",
-      "record_preserve_time": "Periode penyimpanan",
-      "record_preserve_time_description": "Komari akan menyimpan catatan selama jumlah jam yang ditentukan dan membersihkannya setelah kadaluarsa.",
-      "record_preserve_time_label": "Periode penyimpanan data beban",
-      "title": "Pencatatan"
-    },
-    "reverse_proxy": {
-      "binary_label": "Binary",
-      "cloudflare_description": "Mulai dan kelola cloudflared langsung dari panel pengaturan Komari.",
-      "cloudflare_title": "Cloudflare Tunnel",
-      "cloudflare_token": "Token Cloudflare Tunnel",
-      "cloudflare_token_help": "Token yang disimpan dienkripsi di sisi server. Frontend hanya menerima apakah token sudah tersimpan, bukan token mentahnya.",
-      "cloudflare_token_placeholder": "Tempel token Cloudflare Tunnel Anda",
-      "cloudflare_token_stored_placeholder": "•••••••••••••••• (disimpan dengan aman, tidak dikembalikan ke browser)",
-      "cloudflared_label": "cloudflared",
-      "confirmation_help": "Login dengan kata sandi dinonaktifkan. Ketik `STOP CLOUDFLARED` untuk mengonfirmasi.",
-      "confirmation_text": "Teks konfirmasi",
-      "current_password": "Kata sandi saat ini",
-      "env_token_hint": "Variabel lingkungan `KOMARI_CLOUDFLARED_TOKEN` terdeteksi. Komari akan mencoba memulihkan cloudflared secara otomatis saat restart.",
-      "error_message": "Pesan kesalahan",
-      "fetch_status_failed": "Gagal mengambil status cloudflared",
-      "guide_prefix": "Butuh bantuan menemukan token? Baca panduan Uptime Kuma:",
-      "install_hint": "Pada deployment non-Docker, instal cloudflared secara manual atau setel `KOMARI_CLOUDFLARED_BIN` ke path binary cloudflared.",
-      "installed": "terpasang",
-      "latest_status": "Status terbaru",
-      "not_installed": "belum terpasang",
-      "recent_logs": "Log terbaru",
-      "remove_token": "Hapus token yang tersimpan",
-      "remove_token_success": "Token Cloudflare Tunnel telah dihapus",
-      "running": "berjalan",
-      "start_cloudflared": "Mulai cloudflared",
-      "start_success": "cloudflared berhasil dimulai",
-      "status_label": "status",
-      "stop_cloudflared": "Hentikan cloudflared",
-      "stop_dialog_description": "Jika saat ini Anda mengakses Komari melalui Tunnel ini, menghentikan cloudflared dapat langsung memutus sesi Anda.",
-      "stop_dialog_title": "Hentikan cloudflared",
-      "stop_success": "cloudflared berhasil dihentikan",
-      "stopped": "berhenti",
-      "title": "Reverse Proxy"
     },
     "settings_save_failed": "Gagal menyimpan pengaturan",
     "settings_saved": "Pengaturan berhasil disimpan",
